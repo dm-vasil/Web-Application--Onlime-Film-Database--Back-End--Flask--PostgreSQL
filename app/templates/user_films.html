@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="five">
+    {% for f in films %}
+    <div style="margin-bottom: 15px">
+    <form action="" class="threerow" id="film_form" method="post">
+        <div class="short_wrapper">
+          <div class="one">
+              <div class="film_div">
+              <label class="film_label"><a href="{{url_for('film', id=f.id) }}" id={{f.id}}>{{f.name}}</a></label>
+                  </div>
+          </div>
+          <div class="two">
+              <div class="film_div">
+              <label class="film_label">{{f.rating}}</label>
+                  </div>
+          </div>
+          <div class="three">
+                <button name="from_favs" value="{{f.id}}" class="lil_btn">Удалить из избранного</button>
+          </div>
+          <div class="four">
+              <div class="film_div">
+              <label class="film_label">{{f.year}}</label>
+                  </div>
+          </div>
+          <div class="seven">
+          <div class="film_div">
+                <label class="film_label"> / {% for c in countries[f.id] %}  {{c}} / {% endfor %}</label>
+            </div>
+            <div class="film_div">
+                <label class="film_label"> / {% for ge in genres[f.id] %}  {{ge}} / {% endfor %}</label>
+            </div>
+          </div>
+        </div>
+    </form>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

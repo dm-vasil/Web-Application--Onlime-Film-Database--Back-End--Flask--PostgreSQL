@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="five">
+    <form action="" method="post" class="onerow">
+        <div class="wrapper">
+          <div class="one">
+            <label for="name" class="inputs"><b>Director`s name</b></label><br>
+              <input type="text" name="name" id="name" placeholder="Enter director`s name" required><br>
+          </div>
+          <div class="four">
+              <label for="surname" class="inputs"><b>Director`s surname</b></label><br>
+              <input type="text" name="surname" id="surname" placeholder="Enter director`s surname" required><br>
+          </div>
+          <div class="seven">
+              <label for="bdate" class="inputs"><b>Director`s birth date</b></label><br>
+              <input type="date" name="bdate" id="bdate" required><br>
+          </div>
+         <div class="eleven">
+            <label for="countries_l" class="inputs"><b>Director`s fatherland</b></label><br>
+            <input list="countries_l" id="countries_choice" name="countries_l" class="list_input"  autocomplete="off"/>
+            <datalist id="countries_l">
+                {% for c in countries %}
+                    <option id="{{c.name}}" value="{{c.name}}">
+                    {% endfor %}
+            </datalist>
+        </div>
+          <div class="twelve">
+              <button type="submit" class="btn"><b>Add</b></button>
+          </div>
+        </div>
+    </form>
+        </div>
+
+{% endblock %}

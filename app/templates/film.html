@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="four" style="grid-column: 1/3;" id="film_info">
+    <form action="" class="threerow" id="film_form" style="width: 700px; ">
+        <div class="short_wrapper">
+          <div class="one">
+              <div class="film_div">
+              <label class="inputs">Year:</label>
+                  </div>
+          </div>
+          <div class="two">
+             <div class="film_div">
+                  <label class="film_label">{{film.year}}</label>
+                  </div>
+          </div>
+          <div class="three">
+              <button type="button" class="lil_btn">Добавить в избранное</button>
+          </div>
+          <div class="four">
+              <div class="film_div">
+              <label class="inputs">Countries:</label>
+                  </div>
+          </div>
+        <div class="five">
+              <div class="film_div">
+                <label class="film_label"> / {% for c in countries %}  {{c.country_id}} / {% endfor %}</label>
+            </div>
+          </div>
+        <div class="twothree_three">
+             <div class="film_div">
+              <label class="inputs">Rating: {{"%.2f"|format(film.rating)}}</label>
+                  </div>
+            <div class="rating-group">
+        <input class="rating__input rating__input--none" checked name="rating2" id="rating2-0" value="0" type="radio" {{ rating[0] }}>
+        <label aria-label="0 stars" class="rating__label" for="rating2-0">&nbsp;</label>
+        <label aria-label="0.5 stars" class="rating__label rating__label--half" for="rating2-05"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-05" value="0.5" type="radio" {{ rating[1] }}>
+        <label aria-label="1 star" class="rating__label" for="rating2-10"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-10" value="1" type="radio" {{ rating[2] }}>
+        <label aria-label="1.5 stars" class="rating__label rating__label--half" for="rating2-15"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-15" value="1.5" type="radio" {{ rating[3] }}>
+        <label aria-label="2 stars" class="rating__label" for="rating2-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-20" value="2" type="radio" {{ rating[4] }}>
+        <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating2-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-25" value="2.5" type="radio" {{ rating[5] }}>
+        <label aria-label="3 stars" class="rating__label" for="rating2-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-30" value="3" type="radio" {{ rating[6] }}>
+        <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating2-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-35" value="3.5" type="radio" {{ rating[7] }}>
+        <label aria-label="4 stars" class="rating__label" for="rating2-40"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-40" value="4" type="radio" {{ rating[8] }}>
+        <label aria-label="4.5 stars" class="rating__label rating__label--half" for="rating2-45"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-45" value="4.5" type="radio" {{ rating[9] }}>
+        <label aria-label="5 stars" class="rating__label" for="rating2-50"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-50" value="5" type="radio" {{ rating[10] }}>
+</div>
+          </div>
+          <div class="seven">
+          <div class="film_div">
+              <label class="inputs">Genres:</label>
+          </div>
+          </div>
+        <div class="eigth">
+              <div class="film_div">
+                <label class="film_label"> / {% for ge in genres %}  {{ge.genre_id}} / {% endfor %}</label>
+            </div>
+          </div>
+        <div class="eleven">
+              <div class="film_div">
+          <label class="inputs">Directors:</label>
+          </div>
+          </div>
+        <div class="real_twelve">
+              <div class="film_div">
+                 {% for d in directors %}  <label class="film_label"><a href="{{url_for('director', director_id=d.id) }}" id={{d.id}}>{{d.name}} {{d.surname}}</a></label><br> {% endfor %}
+            </div>
+          </div>
+        <div class="fourteen">
+              <div class="film_div">
+          <label class="inputs">Actors:</label>
+          </div>
+          </div>
+        <div class="fiveteen">
+               <div class="film_div">
+          {% for a in actors %}  <label class="film_label"><a href="{{url_for('actor', actor_id=a.id) }}" id={{a.id}}>{{a.name}} {{a.surname}}</a></label><br> {% endfor %}
+            </div>
+          </div>
+        </div>
+    {% if not user_review.review_header %}
+        <button type="button" id={{film.id}} class="slider" onclick=scoreAndReview(this.id)><b style="font-size: 16px"><i class="fa fa-angle-down"></i> Оценить фильм <i class="fa fa-angle-down"></i></b></button>
+    {% endif %}
+    </form>
+    </div>
+    <div class="six" style="grid-row: 2/4;">
+    <div >
+    <label class="inputs" style="border:3px cadetblue; font-size: 20px; font-weight: bold;">Рецензии пользователей</label><br><br>
+    {% if have_reviews %}
+    {% for r in reviews %}
+         {% if r.review_header %}
+     <form action="" class="onerow" style="width: 450px; background-color: rgba(255,155,33,0.9); margin-bottom: 10px">
+              <div>
+                  <label for={{r.id}} class="inputs"><b>Рецензия пользователя {{ r.user }}</b></label><br>
+                  <input name={{r.id}} class="list_input" style="width: 450px;" value="{{ r.review_header }}" readonly/>
+              </div>
+                <textarea class="scrollabletextbox" style="width: 450px; height: 300px" readonly>{{ r.review_text }}</textarea><br>
+     </form>
+         {% endif %}
+         {% endfor %}
+    {% else %}
+        <form action="" class="onerow" style="width: 450px; background-color: rgba(255,155,33,0.9); margin-bottom: 10px">
+                  <label class="film_label"><i>Рецензии пока отсутствуют</i></label><br>
+     </form>
+    {% endif %}
+        </div>
+    </div>
+    <div class="seven" id='temp' style="grid-column: 1/3; display: none" >
+                <form action="" class="threerow" id="film_form" style="width: 700px;" method="post">
+                        <div class="short_wrapper">
+                            {% if not user_review or (not (0<=user_review.rating|float<=10)) %}
+                          <div class="one">
+                              <label class="inputs">Ваша оценка</label>
+                          </div>
+
+                          <div class="four">
+                              <div class="rating-group" id='rate_disabled' style="margin-top: 10px">
+                        <input class="rating__input rating__input--none" checked name="rating3" id="rating3-0" value="0" type="radio" >
+                        <label aria-label="0 stars" class="rating__label" for="rating3-0">&nbsp;</label>
+                        <label aria-label="0.5 stars" class="rating__label rating__label--half" for="rating3-05"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+                        <input class="rating__input" name="rating3" id="rating3-05" value="0.5" type="radio" >
+                        <label aria-label="1 star" class="rating__label" for="rating3-10"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                        <input class="rating__input" name="rating3" id="rating3-10" value="1" type="radio" >
+                        <label aria-label="1.5 stars" class="rating__label rating__label--half" for="rating3-15"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+                        <input class="rating__input" name="rating3" id="rating3-15" value="1.5" type="radio" >
+                        <label aria-label="2 stars" class="rating__label" for="rating3-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                        <input class="rating__input" name="rating3" id="rating3-20" value="2" type="radio" >
+                        <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating3-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+                        <input class="rating__input" name="rating3" id="rating3-25" value="2.5" type="radio" checked>
+                        <label aria-label="3 stars" class="rating__label" for="rating3-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                        <input class="rating__input" name="rating3" id="rating3-30" value="3" type="radio" >
+                        <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating3-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+                        <input class="rating__input" name="rating3" id="rating3-35" value="3.5" type="radio" >
+                        <label aria-label="4 stars" class="rating__label" for="rating3-40"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                        <input class="rating__input" name="rating3" id="rating3-40" value="4" type="radio" >
+                        <label aria-label="4.5 stars" class="rating__label rating__label--half" for="rating3-45"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+                        <input class="rating__input" name="rating3" id="rating3-45" value="4.5" type="radio" >
+                        <label aria-label="5 stars" class="rating__label" for="rating3-50"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                        <input class="rating__input" name="rating3" id="rating3-50" value="5" type="radio" checked>
+                        </div>
+                          </div>
+                            {% endif %}
+                        <div class="two">
+                                <button class="btn" style="width: 150px; height: 30px; padding:0 0; margin-left: 300px; font-size: 16px; font-weight: bold">Отправить</button>
+                            </div>
+                             <div class="seven" style="grid-column: 1/3">
+                                 <hr>
+                                 <div>
+                                  <label for="title" class="inputs"><b>Рецензия (опционально)</b></label><br>
+                                 <input name="title" class="list_input" style="width: 450px;" placeholder="Enter review title here" autocomplete="off"/>
+                                 </div>
+                <textarea class="scrollabletextbox" name="description" placeholder="Enter review text here" style="width: 450px; height: 300px"></textarea><br></div>
+
+                        </div>
+                        </form>
+                        </div>
+{% endblock %}

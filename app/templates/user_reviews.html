@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="five" style="grid-row: 2/4;">
+
+    <label class="inputs" style="border:3px cadetblue; font-size: 20px; font-weight: bold;">Рецензии пользователя</label><br><br>
+    {% for r in reviews %}
+         {% if r.review_header %}
+     <form action="" method="post" class="onerow" style="width: 450px; background-color: rgba(255,155,33,0.9); margin-bottom: 10px">
+        <div class="short_wrapper">
+            <div class="two" style="grid-column: 1/4">
+              <div>
+                  <label for={{r.id}} class="inputs"><b>Фильм <a href="{{url_for('film', id=films[r.id].id) }}">{{films[r.id].name}}, Year {{films[r.id].year}}</a></b></label><br><br>
+                  <label for={{r.id}} class="inputs"><b>Ваша оценка: </b></label><br><br>
+                   <div class="rating-group">
+        <input class="rating__input rating__input--none" checked name="rating2" id="rating2-0" value="0" type="radio" {{ ratings[r.id][0] }}>
+        <label aria-label="0 stars" class="rating__label" for="rating2-0">&nbsp;</label>
+        <label aria-label="0.5 stars" class="rating__label rating__label--half" for="rating2-05"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-05" value="0.5" type="radio" {{ ratings[r.id][1] }}>
+        <label aria-label="1 star" class="rating__label" for="rating2-10"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-10" value="1" type="radio" {{ ratings[r.id][2] }}>
+        <label aria-label="1.5 stars" class="rating__label rating__label--half" for="rating2-15"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-15" value="1.5" type="radio" {{ ratings[r.id][3] }}>
+        <label aria-label="2 stars" class="rating__label" for="rating2-20"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-20" value="2" type="radio" {{ ratings[r.id][4] }}>
+        <label aria-label="2.5 stars" class="rating__label rating__label--half" for="rating2-25"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-25" value="2.5" type="radio" {{ ratings[r.id][5] }}>
+        <label aria-label="3 stars" class="rating__label" for="rating2-30"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-30" value="3" type="radio" {{ ratings[r.id][6] }}>
+        <label aria-label="3.5 stars" class="rating__label rating__label--half" for="rating2-35"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-35" value="3.5" type="radio" {{ ratings[r.id][7] }}>
+        <label aria-label="4 stars" class="rating__label" for="rating2-40"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-40" value="4" type="radio" {{ ratings[r.id][8] }}>
+        <label aria-label="4.5 stars" class="rating__label rating__label--half" for="rating2-45"><i class="rating__icon rating__icon--star fa fa-star-half"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-45" value="4.5" type="radio" {{ ratings[r.id][9] }}>
+        <label aria-label="5 stars" class="rating__label" for="rating2-50"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+        <input class="rating__input" name="rating2" id="rating2-50" value="5" type="radio" {{ ratings[r.id][10] }}>
+            </div>
+                  <input name={{r.id}} class="list_input" style="width: 450px;" value="{{ r.review_header }}" readonly/>
+              </div>
+                <textarea class="scrollabletextbox" style="width: 450px; height: 300px" readonly>{{ r.review_text }}</textarea><br>
+                                </div>
+                <div class="five">
+                 <button name="del_review" value={{ r.id }} class="lil_btn">Удалить рецензию</button>
+                                    </div>
+        </div>
+     </form>
+         {% endif %}
+         {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

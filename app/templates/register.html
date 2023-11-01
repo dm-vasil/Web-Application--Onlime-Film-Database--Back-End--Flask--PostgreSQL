@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="five">
+    <form action="" method="post" class="onerow">
+        <div class="wrapper">
+          <div class="one">
+            <label for="login" class="inputs"><b>Login</b></label><br>
+             {% if data %}
+                 <input type="text" name="login" id="login" value={{ data }} required><br>
+             {% else %}
+                 <input type="text" name="login" id="login" placeholder="Enter Login" required><br>
+             {% endif %}
+          </div>
+          <div class="four">
+              <label for="password" class="inputs"><b>Password</b></label><br>
+              <input type="password" name="password" id="password" placeholder="Enter Password" required><br>
+          </div>
+          <div class="seven">
+              <label for="chk_password" class="inputs"><b>Approve password</b></label><br>
+              <input type="password" name="chk_password" id="chk_password" placeholder="Approve Password" required><br>
+          </div>
+          <div class="eleven">
+              <button type="submit" class="btn"><b>Register</b></button>
+          </div>
+        </div>
+    </form>
+        </div>
+
+{% endblock %}

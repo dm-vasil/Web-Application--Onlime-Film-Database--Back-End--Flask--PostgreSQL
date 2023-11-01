@@ -1,0 +1,69 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }}</title>
+        {% else %}
+        <title>Cinema Search Engine</title>
+        {% endif %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    </head>
+    <body>
+    <header class="mb-auto">
+    <div class="navbar">
+    {% if g.user is none %}
+        <a href="{{ url_for('index') }}"><i class="fa fa-home"></i> Главная</a>
+        <a href="{{ url_for('register') }}">Регистрация</a>
+        <a href="{{ url_for('login') }}"><i class="fa fa-sign-in"></i> Вход</a>
+    {% else %}
+        <div class="dropdown">
+        <button class="dropbtn" onclick="myFunction()"><i class="fa fa-list"></i> Действия
+        <!--<i class="fa fa-caret-down"></i> -->
+        </button>
+          <div class="dropdown-content" id="myDropdown">
+           <a href="{{ url_for('search_film') }}">Поиск фильмов</a>
+           <a href="{{ url_for('user_reviews') }}">Просмотр своих рецензий</a>
+           <a href="{{ url_for('user_films') }}">Избранные фильмы</a>
+           <hr>
+           {% if not g.user.is_admin %}
+              <a href="{{ url_for('admin_login') }}">Получить права администратора</a>
+               {% else %}
+               <a href="{{ url_for('add_genre') }}">Добавить новый жанр</a>
+               <a href="{{ url_for('add_actor') }}">Добавить нового актера</a>
+               <a href="{{ url_for('add_director') }}">Добавить нового режиссера</a>
+               <a href="{{ url_for('add_country') }}">Добавить новую страну</a>
+               <a href="{{ url_for('add_film') }}">Добавить новый фильм</a>
+               {% endif %}
+          </div>
+        </div>
+        <a href="{{ url_for('index') }}"><i class="fa fa-home"></i> Главная</a>
+        <a href="{{ url_for('logout') }}"> <i class="fa fa-sign-out"></i> Выход</a>
+        <label>Welcome {{ g.user.login}}</label>
+    {% endif %}
+    </div>
+  </header>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li><label class="errmsg">{{ message }}</label></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <br><!--<div style="text-align: center;">-->
+        <div class="wrapper">
+        <div class="two">
+        <label class="inputs" style="border:3px cadetblue; font-size: 30px; font-weight: bold; ">
+         {% if title %}
+            {{ title }}
+         {% else %}
+            Cinema Search Engine
+        {% endif %}
+        </label>
+        </div>
+        {% block content %}{% endblock %}</div>
+    </body>
+</html>

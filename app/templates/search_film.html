@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="seven" style="grid-row: 2/4;">
+     <form action="" class="onerow" method="post" id="form_filters">
+     <div class="wrapper" id="search_form">
+          <div class="one">
+          <div style="margin-bottom: 20px;">
+              <label for="send_info" class="inputs" style="font-size: 22px;"><b>Параметры сортировки</b></label>
+          </div>
+            <label for="genres_l" class="inputs"><b>Сортировка по жанру</b></label><br>
+            <input list="genres_l" id="genres_choice" name="genres_l" class="list_input"  autocomplete="off"/>
+            <datalist id="genres_l">
+                {% for g in genres_list %}
+                    <option id="{{g}}" value="{{g}}">
+                    {% endfor %}
+            </datalist>
+          <br>
+          <div>
+              <button type="button" class="btn" id="add_genre" onclick="appendGenre()"><b>Add genre</b></button>
+          </div>
+          <br>
+              <div class="onetwo_twothree" id="chosen_genres" ></div>
+          </div>
+         <div class="four">
+            <label for="countries_l" class="inputs"><b>Сортировка по стране</b></label><br>
+            <input list="countries_l" id="countries_choice" name="countries_l" class="list_input"  autocomplete="off"/>
+            <datalist id="countries_l">
+                {% for c in countries_list %}
+                    <option id="{{c}}" value="{{c}}">
+                    {% endfor %}
+            </datalist>
+          <br>
+          <div>
+              <button type="button" class="btn" id="add_country" onclick="appendCountry()"><b>Add country</b></button>
+          </div>
+          <br>
+              <div class="onetwo_twothree" id="chosen_countries" ></div>
+          </div>
+         <div class="seven">
+            <div class="short_wrapper">
+                <div class="one" style="grid-column: 1/3;margin-bottom: 20px;">
+                     <label for="rating" class="inputs"><b>Сортировка по рейтингу</b></label><br>
+                        <select name="rating" class="list_input" autocomplete="off" style="background-color: white">
+                            <option value="" disabled selected hidden>Выберите порядок сортировки:</option>
+                                <option value="asc">По возрастанию</option>
+                            <option value="desc">По убыванию</option>
+                        </select>
+                    <br><br><label class="inputs"><b>Сортировка по дате</b></label><br>
+                </div>
+                <div class="four">
+                    <label for="min_date" class="inputs"><b>Минимальная</b></label><br>
+                </div>
+                <div class="five">
+                    <label for="max_date" class="inputs"><b>Максимальная</b></label><br>
+                </div>
+                <div class="seven">
+                    <input type="number" id="min_date" name="min_date" min={{min_year}} max={{max_year}} autocomplete="off" placeholder={{min_year}}/>
+                </div>
+                <div class="eigth">
+                    <input type="number" id="max_date" name="max_date" min={{min_year}} max={{max_year}} autocomplete="off" placeholder={{max_year}}/>
+                </div>
+            </div>
+             </div>
+         </div>
+        </form>
+    </div>
+    <div class="five">
+        <form action="" class="onerow" method="post" style="width: 800px;" id="form_film_name">
+            <input list="film_name" id="film_s" name="film_name" class="list_input" style="width: 600px;" onkeyup="showOptions(this.id)" autocomplete="off"/>
+            <datalist name="film_datalist" id="film_name">
+                {% for f in films %}
+                    <option id="{{f.id}}" class="film_option" value="{{f.name+", Year: "+f.year|string}}" disabled>
+                    {% endfor %}
+            </datalist>
+            <button type="button" class="btn" name="submit_button" style="width: 180px; height: 35px; margin-left: 15px; padding:0 0" value="Search" onclick="submitFilmSearch()">
+                <b>Поиск</b></button>
+        </form>
+    </div>
+    <div class="eigth">
+    {% for f in films %}
+    <div style="margin-bottom: 15px">
+    <form action="" class="threerow" id="film_form" method="post">
+        <div class="short_wrapper">
+          <div class="one">
+              <div class="film_div">
+              <label class="film_label"><a href="{{url_for('film', id=f.id) }}" id={{f.id}}>{{f.name}}</a></label>
+                  </div>
+          </div>
+          <div class="two">
+              <div class="film_div">
+              <label class="film_label">{{"%.2f"|format(f.rating)}}</label>
+                  </div>
+          </div>
+          <div class="three">
+              {% if f.id in favs %}
+                <button name="from_favs" value="{{f.id}}" class="lil_btn">Удалить из избранного</button>
+              {% else %}
+                  <button name="to_favs" value="{{f.id}}" class="lil_btn">Добавить в избранное</button>
+              {% endif %}
+          </div>
+          <div class="four">
+              <div class="film_div">
+              <label class="film_label">{{f.year}}</label>
+                  </div>
+          </div>
+          <div class="seven">
+          <div class="film_div">
+                <label class="film_label"> / {% for c in countries[f.id] %}  {{c}} / {% endfor %}</label>
+            </div>
+            <div class="film_div">
+                <label class="film_label"> / {% for ge in genres[f.id] %}  {{ge}} / {% endfor %}</label>
+            </div>
+          </div>
+        </div>
+    </form>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}

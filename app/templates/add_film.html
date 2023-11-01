@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="twothree_one">
+    <form action="" method="post" class="onerow" id="form1">
+        <div class="wrapper">
+          <div class="one">
+            <label for="name" class="inputs"><b>Film title</b></label><br>
+              <input type="text" name="name" id="name" placeholder="Enter film title" required><br>
+          </div>
+          <div class="four">
+              <label for="rel_date" class="inputs"><b>Release year</b></label><br>
+              <input type="number" name="rel_date" id="rel_date" min="1850" max="2030" required><br>
+          </div>
+            <div class="seven">
+              <label for="description" class="inputs"><b>Film description</b></label><br>
+                <textarea class="scrollabletextbox" name="description" placeholder="Enter film description">
+                </textarea>
+
+              <!--<input type="text" name="description" placeholder="Enter film description" style="height: 60px; width: 240px; overflow: auto;">--><br>
+          </div>
+            <div class="eleven">
+              <button type="button" class="btn" name="form1" onclick="submitFilmData()"><b>Send data</b></button>
+          </div>
+
+        </div>
+    </form>
+        </div>
+        <div class="two_twothree">
+    <form action="" method="post" class="threerow" id="form2">
+        <div class="wrapper">
+          <div class="one">
+            <label for="actors_l" class="inputs"><b>Add actors, playing in film</b></label><br>
+            <input list="actors_l" id="actors_choice" name="actors_l" class="list_input"  autocomplete="off"/>
+            <datalist id="actors_l">
+                {% for a in actors %}
+                    <option id="{{a.id}}" value="{{a.name+" "+a.surname+", Born: "+a.bdate.strftime('%Y-%m-%d')}}">
+                    {% endfor %}
+            </datalist>
+          </div>
+              <div class="onetwo_twothree" id="chosen_actors">
+          </div>
+          <div class="three">
+          </div>
+          <div class="four">
+              <button type="button" class="btn" id="add_actor" onclick="appendActor()"><b>Add actor</b></button>
+          </div>
+        </div>
+    </form>
+        </div>
+        <div class="three_twothree">
+    <form action="" method="post" class="threerow" id="form3">
+        <div class="wrapper">
+          <div class="one">
+            <label for="directors_l" class="inputs"><b>Add directors, created film</b></label><br>
+            <input list="directors_l" id="directors_choice" name="directors_l" class="list_input"  autocomplete="off"/>
+            <datalist id="directors_l">
+                {% for d in directors %}
+                    <option id="{{d.id}}" value="{{d.name+" "+d.surname+", Born: "+d.bdate.strftime('%Y-%m-%d')}}">
+                    {% endfor %}
+            </datalist>
+          </div>
+              <div class="onetwo_twothree" id="chosen_directors">
+          </div>
+          <div class="three">
+          </div>
+          <div class="four">
+              <button type="button" class="btn" id="add_director" onclick="appendDirector()"><b>Add director</b></button>
+          </div>
+        </div>
+    </form>
+        </div>
+     <div class="four_twothree">
+    <form action="" method="post" class="threerow" id="form4">
+        <div class="wrapper">
+          <div class="one">
+            <label for="genres_l" class="inputs"><b>Add genres, related to film</b></label><br>
+            <input list="genres_l" id="genres_choice" name="genres_l" class="list_input"  autocomplete="off"/>
+            <datalist id="genres_l">
+                {% for g in genres %}
+                    <option id="{{g.name}}" value="{{g.name}}">
+                    {% endfor %}
+            </datalist>
+          </div>
+              <div class="onetwo_twothree" id="chosen_genres">
+          </div>
+          <div class="three">
+          </div>
+          <div class="four">
+              <button type="button" class="btn" id="add_genre" onclick="appendGenre()"><b>Add genre</b></button>
+          </div>
+        </div>
+    </form>
+        </div>
+    <div class="five_twothree">
+    <form action="" method="post" class="threerow" id="form4">
+        <div class="wrapper">
+          <div class="one">
+            <label for="countries_l" class="inputs"><b>Add countries, involved in film creation</b></label><br>
+            <input list="countries_l" id="countries_choice" name="countries_l" class="list_input"  autocomplete="off"/>
+            <datalist id="countries_l">
+                {% for c in countries %}
+                    <option id="{{c.name}}" value="{{c.name}}">
+                    {% endfor %}
+            </datalist>
+          </div>
+              <div class="onetwo_twothree" id="chosen_countries"></div>
+          <div class="three">
+          </div>
+          <div class="four">
+              <button type="button" class="btn" id="add_country" onclick="appendCountry()"><b>Add country</b></button>
+          </div>
+        </div>
+    </form>
+        </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="five">
+    <form action="" method="post" class="onerow">
+        <div class="wrapper">
+          <div class="one">
+            <label for="login" class="inputs"><b>Login</b></label><br>
+                 <input type="text" name="login" id="login" placeholder="Enter Login" required><br>
+          </div>
+          <div class="four">
+              <label for="password" class="inputs"><b>Password</b></label><br>
+              <input type="password" name="password" id="password" placeholder="Enter Password" required><br>
+          </div>
+          <div class="seven">
+              <button type="submit" class="btn"><b>Login</b></button>
+          </div>
+        </div>
+    </form>
+        </div>
+
+{% endblock %}

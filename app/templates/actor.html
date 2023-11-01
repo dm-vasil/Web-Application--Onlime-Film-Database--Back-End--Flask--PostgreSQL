@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="five" id="actor_info">
+    <form action="" class="threerow" style="background-color: rgba(255,155,33,0.8);" id="film_form">
+        <div class="short_wrapper">
+          <div class="one" >
+              <div class="film_div">
+              <label class="inputs">Имя:</label>
+                  </div>
+          </div>
+          <div class="two" >
+             <div class="film_div">
+                  <label class="film_label">{{actor.name}}</label>
+                  </div>
+          </div>
+          <div class="four">
+              <div class="film_div">
+              <label class="inputs">Фамилия:</label>
+                  </div>
+          </div>
+        <div class="five" >
+              <div class="film_div">
+                <label class="film_label">{{actor.surname}}</label>
+            </div>
+          </div>
+          <div class="seven">
+          <div class="film_div">
+              <label class="inputs">Дата рождения:</label>
+          </div>
+          </div>
+        <div class="eigth">
+              <div class="film_div">
+                <input type="date" class="date_input" value={{actor.bdate}} readonly>
+            </div>
+          </div>
+        <div class="eleven">
+              <div class="film_div">
+         <label class="inputs">Место рождения:</label>
+          </div>
+          </div>
+        <div class="real_twelve" >
+              <div class="film_div">
+                 <label class="film_label">{{actor.country}}</label>
+            </div>
+          </div>
+        <div class="fourteen">
+              <div class="film_div">
+          <label class="inputs">Фильмография:</label>
+          </div>
+          </div>
+        <div class="fiveteen">
+          {% for f in films %}<div style="margin-bottom: 5px">  <label class="film_label"><a href="{{url_for('film', id=f.id) }}">{{f.name}}, Year {{f.year}}</a></label></div> {% endfor %}
+          </div>
+        </div>
+    </form>
+    </div>
+{% endblock %}
